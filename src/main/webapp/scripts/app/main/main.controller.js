@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('MainController', function ($scope, Principal) {
             Principal.identity().then(function (account) {
                 $scope.account = account;

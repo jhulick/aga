@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('maxgatewayApp')
+    angular.module('maxGatewayApp')
         .config(function (uibPaginationConfig) {
             uibPaginationConfig.itemsPerPage = 20;
             uibPaginationConfig.maxSize = 5;

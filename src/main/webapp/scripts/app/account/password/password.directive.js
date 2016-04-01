@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .directive('passwordStrengthBar', function () {
             return {
                 replace: true,

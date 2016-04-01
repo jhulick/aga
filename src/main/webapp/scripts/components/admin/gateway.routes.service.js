@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .factory('GatewayRoutesService', GatewayRoutesService);
 
     function GatewayRoutesService($resource) {

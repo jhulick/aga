@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .factory('Foo', function ($resource, DateUtils) {
             return $resource('api/foos/:id', {}, {
                 'query': {method: 'GET', isArray: true},

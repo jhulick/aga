@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('GatewayController', function ($scope, $filter, $interval, GatewayRoutesService) {
             $scope.refresh = function () {
                 $scope.updatingRoutes = true;

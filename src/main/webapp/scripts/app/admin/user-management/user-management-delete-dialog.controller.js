@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('user-managementDeleteController', function ($scope, $uibModalInstance, entity, User) {
 
             $scope.user = entity;

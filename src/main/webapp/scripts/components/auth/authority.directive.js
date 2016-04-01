@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('maxgatewayApp')
+angular.module('maxGatewayApp')
     .directive('hasAnyAuthority', ['Principal', function (Principal) {
         return {
             restrict: 'A',

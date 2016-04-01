@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('SettingsController', function ($scope, Principal, Auth, Language, $translate) {
             $scope.success = null;
             $scope.error = null;

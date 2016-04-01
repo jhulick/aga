@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .factory('notificationInterceptor', function ($q, AlertService) {
             return {
                 response: function (response) {
-                    var alertKey = response.headers('X-maxgatewayApp-alert');
+                    var alertKey = response.headers('X-maxGatewayApp-alert');
                     if (angular.isString(alertKey)) {
-                        AlertService.success(alertKey, {param: response.headers('X-maxgatewayApp-params')});
+                        AlertService.success(alertKey, {param: response.headers('X-maxGatewayApp-params')});
                     }
                     return response;
                 }

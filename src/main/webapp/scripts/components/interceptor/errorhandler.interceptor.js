@@ -2,12 +2,12 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .factory('errorHandlerInterceptor', function ($q, $rootScope) {
             return {
                 'responseError': function (response) {
                     if (!(response.status == 401 && response.data.path.indexOf("/api/account") == 0 )) {
-                        $rootScope.$emit('maxgatewayApp.httpError', response);
+                        $rootScope.$emit('maxGatewayApp.httpError', response);
                     }
                     return $q.reject(response);
                 }

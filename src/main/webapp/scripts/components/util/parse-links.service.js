@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .service('ParseLinks', function () {
             this.parse = function (header) {
                 if (header.length == 0) {

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .config(function (uibPagerConfig) {
             uibPagerConfig.itemsPerPage = 20;
             uibPagerConfig.previousText = '«';

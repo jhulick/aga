@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('maxgatewayApp')
+    angular.module('maxGatewayApp')
         .config(function ($stateProvider) {
             $stateProvider
                 .state('admin', {

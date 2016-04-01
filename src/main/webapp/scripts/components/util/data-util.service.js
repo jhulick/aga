@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .service('DataUtils', function ($filter) {
             this.byteSize = function (base64String) {
                 if (!angular.isString(base64String)) {

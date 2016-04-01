@@ -3,7 +3,7 @@
     /*jshint bitwise: false*/
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .service('Base64', Base64)
         .factory('StorageService', StorageService);
 

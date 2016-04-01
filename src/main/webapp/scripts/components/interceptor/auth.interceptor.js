@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .factory('authExpiredInterceptor', function ($rootScope, $q, $injector, localStorageService) {
             return {
                 responseError: function (response) {

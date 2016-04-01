@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('maxgatewayApp')
+    angular.module('maxGatewayApp')
         .controller('MetricsModalController', function ($scope, $uibModalInstance, threadDump) {
 
             $scope.threadDump = threadDump;

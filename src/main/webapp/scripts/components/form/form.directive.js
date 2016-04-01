@@ -3,7 +3,7 @@
     /* globals $ */
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .directive('showValidation', function () {
             return {
                 restrict: 'A',

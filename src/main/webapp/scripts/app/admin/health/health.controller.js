@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('HealthController', function ($scope, MonitoringService, $uibModal) {
             $scope.updatingHealth = true;
             $scope.separator = '.';

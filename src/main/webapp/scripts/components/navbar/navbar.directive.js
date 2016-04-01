@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('maxgatewayApp')
+    angular.module('maxGatewayApp')
         .directive('activeMenu', function ($translate, $locale, tmhDynamicLocale) {
             return {
                 restrict: 'A',

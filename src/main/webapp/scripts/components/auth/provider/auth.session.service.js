@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('maxgatewayApp')
+angular.module('maxGatewayApp')
     .factory('AuthServerProvider', function loginService($http, localStorageService, $window) {
         return {
             login: function(credentials) {

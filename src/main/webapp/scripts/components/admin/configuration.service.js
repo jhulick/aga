@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .factory('ConfigurationService', ConfigurationService);
 
     function ConfigurationService($rootScope, $filter, $http) {

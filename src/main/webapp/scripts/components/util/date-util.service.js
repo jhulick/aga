@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .service('DateUtils', function ($filter) {
 
             this.convertLocaleDateToServer = function (date) {

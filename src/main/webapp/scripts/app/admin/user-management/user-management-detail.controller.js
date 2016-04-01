@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('UserManagementDetailController', function ($scope, $stateParams, User) {
             $scope.user = {};
             $scope.load = function (login) {

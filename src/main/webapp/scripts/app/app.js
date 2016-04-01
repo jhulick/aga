@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp', [
+        .module('maxGatewayApp', [
             'LocalStorageModule',
             'tmh.dynamicLocale',
             'pascalprecht.translate',

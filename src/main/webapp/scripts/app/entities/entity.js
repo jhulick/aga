@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .config(function ($stateProvider) {
             $stateProvider
                 .state('entity', {

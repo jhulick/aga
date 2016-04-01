@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .directive('maxSort', function () {
             return {
                 restrict: 'A',

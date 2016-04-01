@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('ResetFinishController', function ($scope, $stateParams, $timeout, Auth) {
 
             $scope.keyMissing = $stateParams.key === undefined;

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('ConfigurationController', function ($scope, ConfigurationService) {
             ConfigurationService.get().then(function (configuration) {
                 $scope.configuration = configuration;

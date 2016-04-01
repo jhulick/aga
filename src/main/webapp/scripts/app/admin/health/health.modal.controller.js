@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('HealthModalController', function ($scope, $uibModalInstance, currentHealth, baseName, subSystemName) {
 
             $scope.currentHealth = currentHealth;

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('MetricsController', function ($scope, MonitoringService, $uibModal) {
             $scope.metrics = {};
             $scope.updatingMetrics = true;

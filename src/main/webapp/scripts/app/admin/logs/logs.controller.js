@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('LogsController', function ($scope, LogsService) {
             $scope.loggers = LogsService.findAll();
 

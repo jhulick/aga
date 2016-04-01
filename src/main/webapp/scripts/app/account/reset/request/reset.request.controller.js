@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .controller('RequestResetController', function ($rootScope, $scope, $state, $timeout, Auth) {
 
             $scope.success = null;

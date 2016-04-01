@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('maxgatewayApp')
+    angular.module('maxGatewayApp')
         .factory('Language', function ($q, $http, $translate, LANGUAGES) {
             return {
                 getCurrent: function () {

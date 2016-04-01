@@ -3,7 +3,7 @@
     /* globals $ */
 
     angular
-        .module('maxgatewayApp')
+        .module('maxGatewayApp')
         .directive('minbytes', function ($q) {
             function endsWith(suffix, str) {
                 return str.indexOf(suffix, str.length - suffix.length) !== -1;

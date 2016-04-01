@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('maxgatewayApp')
+    angular.module('maxGatewayApp')
         .controller('LanguageController', function ($scope, $translate, Language, tmhDynamicLocale) {
             $scope.changeLanguage = function (languageKey) {
                 $translate.use(languageKey);

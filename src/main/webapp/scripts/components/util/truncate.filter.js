@@ -2,7 +2,7 @@
 (function() {
     'use strict';
 
-    angular.module('maxgatewayApp')
+    angular.module('maxGatewayApp')
         .filter('characters', function () {
             return function (input, chars, breakOnWord) {
                 if (isNaN(chars)) {
