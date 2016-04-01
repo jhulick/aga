@@ -54,7 +54,7 @@ public class RedisRateLimitGatewayApplicationTests {
 
     static RedisServer redisServer;
 
-    @Value("${local.server.port}")
+    @Value("${server.port}")
     private int port;
 
     @Autowired

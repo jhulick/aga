@@ -11,25 +11,26 @@
 # ===================================================================
 
 spring:
-    datasource:
-        driver-class-name: org.h2.jdbcx.JdbcDataSource
-        url: jdbc:h2:mem:maxgateway;DB_CLOSE_DELAY=-1
-        name:
-        username:
-        password:
-    jpa:
-        database-platform: gov.max.microservices.gateway.domain.util.FixedH2Dialect
-        database: H2
-        open-in-view: false
-        show_sql: true
-        hibernate:
-            ddl-auto: none
-            naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
-        properties:
-            hibernate.cache.use_second_level_cache: false
-            hibernate.cache.use_query_cache: false
-            hibernate.generate_statistics: true
-            hibernate.hbm2ddl.auto: validate
+    port: 8761
+#    datasource:
+#        driver-class-name: org.h2.jdbcx.JdbcDataSource
+#        url: jdbc:h2:mem:maxgateway;DB_CLOSE_DELAY=-1
+#        name:
+#        username:
+#        password:
+#    jpa:
+#        database-platform: gov.max.microservices.gateway.domain.util.FixedH2Dialect
+#        database: H2
+#        open-in-view: false
+#        show_sql: true
+#        hibernate:
+#            ddl-auto: none
+#            naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+#        properties:
+#            hibernate.cache.use_second_level_cache: false
+#            hibernate.cache.use_query_cache: false
+#            hibernate.generate_statistics: true
+#            hibernate.hbm2ddl.auto: validate
     mail:
         host: localhost
     mvc:
@@ -39,7 +40,7 @@ spring:
         mode: XHTML
 
 liquibase:
-    contexts: test
+    contexts: dev
 
 security:
     basic:

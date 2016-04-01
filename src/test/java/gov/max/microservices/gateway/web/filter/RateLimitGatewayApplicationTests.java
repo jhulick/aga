@@ -37,7 +37,8 @@ import org.springframework.web.bind.annotation.RestController;
 })
 @DirtiesContext
 public class RateLimitGatewayApplicationTests {
-    @Value("${local.server.port}")
+
+    @Value("${server.port}")
     private int port;
 
     @Autowired
