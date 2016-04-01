@@ -1,0 +1,10 @@
+spring:
+    application:
+        name: gateway
+    cloud:
+        config:
+            fail-fast: true
+            uri: http://localhost:8761/config
+            label: master
+            name: gateway
+            profile: prod

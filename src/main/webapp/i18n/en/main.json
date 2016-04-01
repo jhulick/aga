@@ -1,0 +1,16 @@
+{
+    "main": {
+        "title": "Welcome to MAX Gateway!",
+        "subtitle": "This is the API Gateway homepage",
+        "logged": {
+            "message": "You are logged in as user \"{{username}}\"."
+        },
+        "question": "If you have any question on MAX:",
+        "link": {
+            "homepage": "MAX homepage",
+            "contact": "jeremy_d._hulick@gmail.com"
+        },
+        "like": "If you like MAX, don't forget to give us a star on",
+        "github": "Github"
+    }
+}
