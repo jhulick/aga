@@ -1,10 +1,10 @@
 (function (window) {
 
     // cache the templates we use on this page as global variables (asynchronously)
-    jQuery.get(getRelativePath("views/circuit-breaker/threadpool.html"), function (data) {
+    jQuery.get(getRelativePath("script/app/dashboard/circuit-breaker/threadpool.html"), function (data) {
         htmlTemplate = data;
     });
-    jQuery.get(getRelativePath("views/circuit-breaker/threadpool-container.html"), function (data) {
+    jQuery.get(getRelativePath("script/app/dashboard/circuit-breaker/threadpool-container.html"), function (data) {
         htmlTemplateContainer = data;
     });
 

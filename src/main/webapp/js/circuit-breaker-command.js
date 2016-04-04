@@ -1,10 +1,10 @@
 (function (window) {
 
     // cache the templates we use on this page as global variables (asynchronously)
-    jQuery.get(getRelativePath("views/circuit-breaker/circuit.html"), function (data) {
+    jQuery.get(getRelativePath("script/app/dashboard/circuit-breaker/circuit.html"), function (data) {
         hystrixTemplateCircuit = data;
     });
-    jQuery.get(getRelativePath("views/circuit-breaker/circuit-container.html"), function (data) {
+    jQuery.get(getRelativePath("script/app/dashboard/circuit-breaker/circuit-container.html"), function (data) {
         hystrixTemplateCircuitContainer = data;
     });
 
