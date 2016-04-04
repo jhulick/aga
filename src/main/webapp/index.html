@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="assets/styles/main.css">
         <!-- endbuild -->
     </head>
-    <body ng-app="maxgatewayApp">
+    <body ng-app="maxGatewayApp">
         <!--[if lt IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -148,6 +148,33 @@
         <script src="scripts/components/auth/provider/auth.session.service.js"></script>
         <script src="scripts/app/account/sessions/sessions.js"></script>
         <script src="scripts/app/account/sessions/sessions.controller.js"></script>
+
+        <!-- dashboard -->
+        <script src="scripts/app/dashboard/services/services.js"></script>
+        <script src="scripts/app/dashboard/filters/filters.js"></script>
+        <script src="scripts/app/dashboard/overview/overview.controller.js"></script>
+        <script src="scripts/app/dashboard/overview/overview.route.js"></script>
+        <script src="scripts/app/dashboard/overview/overview.selected.controller.js"></script>
+        <script src="scripts/app/dashboard/overview/overview.selected.route.js"></script>
+        <script src="scripts/app/dashboard/apps/apps.controller.js"></script>
+        <script src="scripts/app/dashboard/apps/apps.history.controller.js"></script>
+        <script src="scripts/app/dashboard/apps/apps.route.js"></script>
+        <script src="scripts/app/dashboard/apps/details.classpath.controller.js"></script>
+        <script src="scripts/app/dashboard/apps/details.controller.js"></script>
+        <script src="scripts/app/dashboard/apps/details.env.controller.js"></script>
+        <script src="scripts/app/dashboard/apps/details.metrics.controller.js"></script>
+        <script src="scripts/app/dashboard/apps/details.props.controller.js"></script>
+        <script src="scripts/app/dashboard/apps/jmx.controller.js"></script>
+        <script src="scripts/app/dashboard/apps/logging.controller.js"></script>
+        <script src="scripts/app/dashboard/apps/threads.controller.js"></script>
+        <script src="js/tmpl.js"></script>
+        <script src="js/jquery.tinysort.min.js"></script>
+        <script src="js/circuit-breaker-command.js"></script>
+        <script src="js/circuit-breaker-threadpool.js"></script>
+        <script src="scripts/app/dashboard/circuit-breaker/circuit.breaker.controller.js"></script>
+        <script src="scripts/app/dashboard/circuit-breaker/circuit.breaker.route.js"></script>
+        <!-- end dashboard -->
+
         <!-- endbuild -->
     </body>
 </html>
