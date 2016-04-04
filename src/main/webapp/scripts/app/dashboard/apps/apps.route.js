@@ -27,11 +27,6 @@
                     templateUrl: 'scripts/app/dashboard/apps/history.html',
                     controller: 'appsHistoryCtrl'
                 })
-                .state('circuit-breaker', {
-                    url: '/circuit-breaker/:type/:id',
-                    templateUrl: 'scripts/app/dashboard/circuit-breaker/index.html',
-                    controller: 'circuitBreakerCtrl'
-                })
                 .state('apps.details', {
                     url: '/details',
                     templateUrl: 'scripts/app/dashboard/apps/details.html',
