@@ -15,10 +15,11 @@
             'ui.bootstrap',
             'ui.router',
             'infinite-scroll',
-            'angular-loading-bar'
+            'angular-loading-bar',
+            'nvd3ChartDirectives'
         ])
 
-        .run(function ($rootScope, $location, $window, $http, $state, $translate, Language, Auth, Principal, ENV, VERSION) {
+        .run(function ($rootScope, $location, $window, $http, $state, $stateParams, $translate, Language, Auth, Principal, ENV, VERSION) {
             // update the window title using params in the following
             // precendence
             // 1. titleKey parameter
@@ -32,6 +33,9 @@
                     $window.document.title = title;
                 });
             };
+
+            $rootScope.$state = $state;
+            $rootScope.$stateParams = $stateParams;
 
             $rootScope.ENV = ENV;
             $rootScope.VERSION = VERSION;
