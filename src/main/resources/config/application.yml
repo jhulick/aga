@@ -25,8 +25,24 @@ eureka:
         serviceUrl:
             defaultZone: http://localhost:8761/eureka/
 
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 10000
 
 zuul:
+    host:
+        connect-timeout-millis: 5000
+        socket-timeout-millis: 10000
+
+        # Manage load with these settings. These are useful for setting in stress
+        # testing and load sensitive scenarios.
+        #
+        #max-total-connections: 200
+        #max-per-route-connections: 20
 
     # The rate limit filter is enabled when zuul.ratelimit.enabled is present.
     # It has an inmemory and a redis based implementation. The redis
