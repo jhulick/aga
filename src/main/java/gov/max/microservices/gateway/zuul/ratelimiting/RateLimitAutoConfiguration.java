@@ -1,6 +1,7 @@
-package gov.max.microservices.gateway.web.filter.ratelimit;
+package gov.max.microservices.gateway.zuul.ratelimiting;
 
-import gov.max.microservices.gateway.web.filter.ratelimit.redis.RedisRateLimiter;
+import gov.max.microservices.gateway.zuul.ratelimiting.redis.RedisRateLimiter;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -13,12 +14,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 @Configuration
 @EnableConfigurationProperties(RateLimitProperties.class)
 @ConditionalOnProperty("zuul.ratelimit.enabled")
-
 public class RateLimitAutoConfiguration {
 
     @Bean
     public RateLimitFilter rateLimiterFilter(RateLimiter rateLimiter, RateLimitProperties rateLimitProperties){
-        return new RateLimitFilter(rateLimiter,rateLimitProperties);
+        return new RateLimitFilter(rateLimiter, rateLimitProperties);
     }
 
     @ConditionalOnMissingBean(name = {"redisTemplate"})
@@ -39,8 +39,7 @@ public class RateLimitAutoConfiguration {
 
         @Bean
         public RateLimiter redisRateLimiter(RedisTemplate redisTemplate) {
-            RedisRateLimiter rateLimiter = new RedisRateLimiter(redisTemplate);
-            return rateLimiter;
+            return new RedisRateLimiter(redisTemplate);
         }
     }
 

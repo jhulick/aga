@@ -1,4 +1,4 @@
-package gov.max.microservices.gateway.web.filter;
+package gov.max.microservices.gateway.zuul;
 
 import com.netflix.util.Pair;
 import com.netflix.zuul.context.RequestContext;

@@ -1,4 +1,4 @@
-package gov.max.microservices.gateway.web.filter;
+package gov.max.microservices.gateway.zuul;
 
 import static org.junit.Assert.*;
 
@@ -7,11 +7,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import gov.max.microservices.gateway.web.filter.RateLimitZuulApplication;
 import gov.max.microservices.gateway.web.filter.ratelimit.*;
-import gov.max.microservices.gateway.web.filter.ratelimit.redis.RedisRateLimiter;
-import org.junit.AfterClass;
+import gov.max.microservices.gateway.zuul.ratelimiting.redis.RedisRateLimiter;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;

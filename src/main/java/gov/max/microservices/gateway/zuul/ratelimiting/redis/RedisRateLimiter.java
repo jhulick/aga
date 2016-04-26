@@ -1,11 +1,11 @@
-package gov.max.microservices.gateway.web.filter.ratelimit.redis;
+package gov.max.microservices.gateway.zuul.ratelimiting.redis;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import gov.max.microservices.gateway.web.filter.ratelimit.Policy;
-import gov.max.microservices.gateway.web.filter.ratelimit.Rate;
-import gov.max.microservices.gateway.web.filter.ratelimit.RateLimiter;
+import gov.max.microservices.gateway.zuul.ratelimiting.Policy;
+import gov.max.microservices.gateway.zuul.ratelimiting.Rate;
+import gov.max.microservices.gateway.zuul.ratelimiting.RateLimiter;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisOperations;

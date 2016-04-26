@@ -1,4 +1,4 @@
-package gov.max.microservices.gateway.web.filter.ratelimit;
+package gov.max.microservices.gateway.zuul.ratelimiting;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties("zuul.ratelimit")
-public class RateLimitProperties {
+public class RateLimitingProperties {
 
     private Map<Policy.PolicyType, Policy> policies = new LinkedHashMap<>();
 

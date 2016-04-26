@@ -1,4 +1,4 @@
-package gov.max.microservices.gateway.web.filter.ratelimit;
+package gov.max.microservices.gateway.zuul.ratelimiting;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -6,15 +6,33 @@ import javax.servlet.http.HttpServletResponse;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
-public class RateLimitFilter extends ZuulFilter {
+import gov.max.microservices.gateway.security.SecurityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+
+import java.util.Calendar;
+import java.util.Date;
+
+/**
+ * Zuul filter for limiting the number of HTTP calls per client.
+ */
+public class RateLimitingFilter extends ZuulFilter {
+
+    private final Logger log = LoggerFactory.getLogger(RateLimitingFilter.class);
+
+    private static final String TIME_PERIOD = "hour";
+
+    private long rateLimit = 100000L;
 
     private final RateLimiter limiter;
 
     private RateLimitProperties properties;
 
-    public RateLimitFilter(RateLimiter limiter, RateLimitProperties properties) {
+    public RateLimitingFilter(RateLimiter limiter, RateLimitProperties properties) {
         this.limiter = limiter;
         this.properties = properties;
+//        this.rateLimit = maxProperties.getGateway().getRateLimiting().getLimit();
     }
 
     @Override
@@ -29,6 +47,8 @@ public class RateLimitFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
+        // specific APIs can be filtered out using
+        // if (RequestContext.getCurrentContext().getRequest().getRequestURI().startsWith("/api")) { ... }
         return true;
     }
 
@@ -50,21 +70,54 @@ public class RateLimitFilter extends ZuulFilter {
         return null;
     }
 
+    private void apiLimitExceeded() {
+        RequestContext ctx = RequestContext.getCurrentContext();
+        ctx.setResponseStatusCode(HttpStatus.TOO_MANY_REQUESTS.value());
+        if (ctx.getResponseBody() == null) {
+            ctx.setResponseBody("API rate limit exceeded");
+            ctx.setSendZuulResponse(false);
+        }
+    }
+
     private Policy findRequestPolicy(HttpServletRequest request) {
         Policy policy = (request.getUserPrincipal() == null) ? properties.getPolicies().get(Policy.PolicyType.ANONYMOUS) : properties.getPolicies().get(Policy.PolicyType.AUTHENTICATED);
         return policy;
     }
 
+    /**
+     * The ID that will identify the limit: the user login or the user IP address.
+     */
     private String findKey(HttpServletRequest request) {
         String key = (request.getUserPrincipal() == null) ? request.getRemoteAddr() : request.getUserPrincipal().getName();
         return key;
     }
 
+    /**
+     * The ID that will identify the limit: the user login or the user IP address.
+     */
+    private String getId(HttpServletRequest httpServletRequest) {
+        String login = SecurityUtils.getCurrentUserLogin();
+        if (login != null) {
+            return login;
+        } else {
+            return httpServletRequest.getRemoteAddr();
+        }
+    }
+
+    /**
+     * The period for which the rate is calculated.
+     */
+    private Date getPeriod() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear(Calendar.MILLISECOND);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MINUTE);
+        return calendar.getTime();
+    }
+
     public static interface Headers {
         String LIMIT = "X-RateLimit-Limit";
-
         String REMAINING = "X-RateLimit-Remaining";
-
         String RESET = "X-RateLimit-Reset";
     }
 }

@@ -1,4 +1,4 @@
-package gov.max.microservices.gateway.web.filter.ratelimit;
+package gov.max.microservices.gateway.zuul.ratelimiting;
 
 public interface RateLimiter {
 

@@ -1,4 +1,4 @@
-package gov.max.microservices.gateway.web.filter.ratelimit;
+package gov.max.microservices.gateway.zuul.ratelimiting;
 
 /**
  * A policy is used to define rate limit constraints within RateLimiter implementations

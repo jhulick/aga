@@ -1,4 +1,4 @@
-package gov.max.microservices.gateway.web.filter.ratelimit;
+package gov.max.microservices.gateway.zuul.ratelimiting;
 
 /**
  * Represents a view of rate limit in a giving time for a user.
