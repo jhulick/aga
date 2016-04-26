@@ -27,9 +27,9 @@ public class RateLimitingFilter extends ZuulFilter {
 
     private final RateLimiter limiter;
 
-    private RateLimitProperties properties;
+    private RateLimitingProperties properties;
 
-    public RateLimitingFilter(RateLimiter limiter, RateLimitProperties properties) {
+    public RateLimitingFilter(RateLimiter limiter, RateLimitingProperties properties) {
         this.limiter = limiter;
         this.properties = properties;
 //        this.rateLimit = maxProperties.getGateway().getRateLimiting().getLimit();

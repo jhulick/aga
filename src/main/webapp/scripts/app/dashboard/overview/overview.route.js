@@ -14,7 +14,7 @@
                     views: {
                         'content@': {
                             templateUrl: 'scripts/app/dashboard/overview/overview.html',
-                            controller: 'overviewController'
+                            controller: 'overviewCtrl'
                         }
                     }
                 });

@@ -2,7 +2,7 @@ package gov.max.microservices.gateway.zuul;
 
 import static org.junit.Assert.*;
 
-import gov.max.microservices.gateway.web.filter.ratelimit.RateLimitFilter;
+import gov.max.microservices.gateway.zuul.ratelimiting.RateLimitingFilter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,9 +52,9 @@ public class RateLimitGatewayApplicationTests {
         routes.addRoute("/self/**", "http://localhost:" + this.port + "/local");
         this.endpoint.reset();
         ResponseEntity<String> response = new TestRestTemplate().getForEntity("http://localhost:" + port + "/self/1", String.class);
-        assertNotNull(response.getHeaders().get(RateLimitFilter.Headers.LIMIT));
-        assertNotNull(response.getHeaders().get(RateLimitFilter.Headers.REMAINING));
-        assertNotNull(response.getHeaders().get(RateLimitFilter.Headers.RESET));
+        assertNotNull(response.getHeaders().get(RateLimitingFilter.Headers.LIMIT));
+        assertNotNull(response.getHeaders().get(RateLimitingFilter.Headers.REMAINING));
+        assertNotNull(response.getHeaders().get(RateLimitingFilter.Headers.RESET));
     }
 }
 

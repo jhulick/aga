@@ -1,10 +1,13 @@
 package gov.max.microservices.gateway.zuul.accesscontrol;
 
-import com.mycompany.myapp.config.JHipsterProperties;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+
+import gov.max.microservices.gateway.config.MaxProperties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.http.HttpStatus;
@@ -24,7 +27,7 @@ public class AccessControlFilter extends ZuulFilter {
     private RouteLocator routeLocator;
 
     @Inject
-    private JHipsterProperties jHipsterProperties;
+    private MaxProperties maxProperties;
 
     @Override
     public String filterType() {
@@ -60,7 +63,7 @@ public class AccessControlFilter extends ZuulFilter {
     }
 
     private boolean isAuthorizedRequest(String serviceUrl, String serviceName, String requestUri) {
-        Map<String, List<String>> authorizedMicroservicesEndpoints = jHipsterProperties.getGateway()
+        Map<String, List<String>> authorizedMicroservicesEndpoints = maxProperties.getGateway()
             .getAuthorizedMicroservicesEndpoints();
 
         // If the authorized endpoints list was left empty for this route, all access are allowed

@@ -11,12 +11,12 @@
             'ngAria',
             'ngCacheBuster',
             'ngFileUpload',
-            // maxpster-needle-angularjs-add-module max will add new module
             'ui.bootstrap',
             'ui.router',
             'infinite-scroll',
             'angular-loading-bar',
-            'nvd3ChartDirectives'
+            'nvd3ChartDirectives',
+            'maxGatewayApp.services'
         ])
 
         .run(function ($rootScope, $location, $window, $http, $state, $stateParams, $translate, Language, Auth, Principal, ENV, VERSION) {
@@ -99,7 +99,7 @@
             //Cache everything except rest api requests
             httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
-            $urlRouterProvider.otherwise('/');
+            $urlRouterProvider.otherwise('/overview'); // was '/'
             $stateProvider.state('site', {
                 'abstract': true,
                 views: {

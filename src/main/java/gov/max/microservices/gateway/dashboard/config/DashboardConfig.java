@@ -30,17 +30,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan("gov.max.microservices.gateway.dashboard")
 public class DashboardConfig extends WebMvcConfigurerAdapter {
 
-    @ConditionalOnClass(name = "com.netflix.eureka.registry.PeerAwareInstanceRegistry")
-    @ConditionalOnMissingBean(ApplicationRepository.class)
-    public static class LocalEureka {
+//    @ConditionalOnClass(name = "com.netflix.eureka.registry.PeerAwareInstanceRegistry")
+//    @ConditionalOnMissingBean(ApplicationRepository.class)
+//    public static class LocalEureka {
+//
+//        @Bean
+//        public ApplicationRepository eurekaRepository(PeerAwareInstanceRegistry peerAwareInstanceRegistry) {
+//            return new LocaleEurekaRepository(peerAwareInstanceRegistry);
+//        }
+//    }
 
-        @Bean
-        public ApplicationRepository eurekaRepository(PeerAwareInstanceRegistry peerAwareInstanceRegistry) {
-            return new LocaleEurekaRepository(peerAwareInstanceRegistry);
-        }
-    }
-
-    @ConditionalOnMissingClass(name = "com.netflix.eureka.registry.PeerAwareInstanceRegistry")
+//    @ConditionalOnMissingClass(name = "com.netflix.eureka.registry.PeerAwareInstanceRegistry")
     @ConditionalOnClass(name = "com.netflix.discovery.EurekaClient")
     @ConditionalOnMissingBean(ApplicationRepository.class)
     public static class RemoteEureka {

@@ -12,13 +12,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
 @Configuration
-@EnableConfigurationProperties(RateLimitProperties.class)
+@EnableConfigurationProperties(RateLimitingProperties.class)
 @ConditionalOnProperty("zuul.ratelimit.enabled")
 public class RateLimitAutoConfiguration {
 
     @Bean
-    public RateLimitFilter rateLimiterFilter(RateLimiter rateLimiter, RateLimitProperties rateLimitProperties){
-        return new RateLimitFilter(rateLimiter, rateLimitProperties);
+    public RateLimitingFilter rateLimiterFilter(RateLimiter rateLimiter, RateLimitingProperties rateLimitingProperties){
+        return new RateLimitingFilter(rateLimiter, rateLimitingProperties);
     }
 
     @ConditionalOnMissingBean(name = {"redisTemplate"})

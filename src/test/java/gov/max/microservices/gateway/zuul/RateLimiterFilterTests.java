@@ -3,7 +3,7 @@ package gov.max.microservices.gateway.zuul;
 import com.netflix.util.Pair;
 import com.netflix.zuul.context.RequestContext;
 
-import gov.max.microservices.gateway.web.filter.ratelimit.*;
+import gov.max.microservices.gateway.zuul.ratelimiting.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,30 +24,30 @@ public class RateLimiterFilterTests {
 
     private MockHttpServletRequest request = new MockHttpServletRequest();
     private MockHttpServletResponse response = new MockHttpServletResponse();
-    private RateLimitProperties properties;
+    private RateLimitingProperties properties;
     @Before
     public void setup(){
         RequestContext ctx = RequestContext.getCurrentContext();
         ctx.clear();
         ctx.setRequest(this.request);
         ctx.setResponse(response);
-        properties = new RateLimitProperties();
+        properties = new RateLimitingProperties();
         properties.init();
     }
 
     @Test
     public void anonymousHeadersOk() throws Exception {
         RateLimiter limiter = new InMemoryRateLimiter();
-        RateLimitFilter filter = new RateLimitFilter(limiter,properties);
+        RateLimitingFilter filter = new RateLimitingFilter(limiter,properties);
         filter.run();
         RequestContext ctx = RequestContext.getCurrentContext();
 
         Policy policy = properties.getPolicies().get(Policy.PolicyType.ANONYMOUS);
         assertNull(ctx.get("error.status_code"));
         verifyHeaders(ctx);
-        assertEquals(policy.getLimit().toString(), ctx.getResponse().getHeader(RateLimitFilter.Headers.LIMIT));
-        assertEquals(policy.getLimit()-1, Long.parseLong(ctx.getResponse().getHeader(RateLimitFilter.Headers.REMAINING)));
-        assertTrue(Long.valueOf(ctx.getResponse().getHeader(RateLimitFilter.Headers.RESET)) > System.currentTimeMillis());
+        assertEquals(policy.getLimit().toString(), ctx.getResponse().getHeader(RateLimitingFilter.Headers.LIMIT));
+        assertEquals(policy.getLimit()-1, Long.parseLong(ctx.getResponse().getHeader(RateLimitingFilter.Headers.REMAINING)));
+        assertTrue(Long.valueOf(ctx.getResponse().getHeader(RateLimitingFilter.Headers.RESET)) > System.currentTimeMillis());
     }
 
     @Test
@@ -57,15 +57,15 @@ public class RateLimiterFilterTests {
         Rate sample = new Rate(2L,0L,10L);
 
         when(limiter.consume(any(Policy.class),anyString())).thenReturn(sample);
-        RateLimitFilter filter = new RateLimitFilter(limiter,properties);
+        RateLimitingFilter filter = new RateLimitingFilter(limiter,properties);
         try{
             filter.run();
         }catch (Exception e){}
         RequestContext ctx = RequestContext.getCurrentContext();
 
-        assertEquals(sample.getLimit().toString(), ctx.getResponse().getHeader(RateLimitFilter.Headers.LIMIT));
-        assertEquals(sample.getRemaining().toString(), ctx.getResponse().getHeader(RateLimitFilter.Headers.REMAINING));
-        assertEquals(sample.getReset().toString(), ctx.getResponse().getHeader(RateLimitFilter.Headers.RESET));
+        assertEquals(sample.getLimit().toString(), ctx.getResponse().getHeader(RateLimitingFilter.Headers.LIMIT));
+        assertEquals(sample.getRemaining().toString(), ctx.getResponse().getHeader(RateLimitingFilter.Headers.REMAINING));
+        assertEquals(sample.getReset().toString(), ctx.getResponse().getHeader(RateLimitingFilter.Headers.RESET));
         assertEquals(429,ctx.getResponseStatusCode());
     }
 
@@ -76,12 +76,12 @@ public class RateLimiterFilterTests {
         properties.getPolicies().put(Policy.PolicyType.AUTHENTICATED,authPolicy);
 
         RateLimiter limiter = new InMemoryRateLimiter();
-        RateLimitFilter filter = new RateLimitFilter(limiter,properties);
+        RateLimitingFilter filter = new RateLimitingFilter(limiter,properties);
 
         filter.run();
         RequestContext ctx = RequestContext.getCurrentContext();
         verifyHeaders(ctx);
-        String anonymousRemaining = ctx.getResponse().getHeader(RateLimitFilter.Headers.REMAINING);
+        String anonymousRemaining = ctx.getResponse().getHeader(RateLimitingFilter.Headers.REMAINING);
         this.request.setUserPrincipal(new Principal() {
             @Override
             public String getName() {
@@ -89,7 +89,7 @@ public class RateLimiterFilterTests {
             }
         });
         filter.run();
-        String authRemaining = ctx.getResponse().getHeader(RateLimitFilter.Headers.REMAINING);
+        String authRemaining = ctx.getResponse().getHeader(RateLimitingFilter.Headers.REMAINING);
         assertTrue(Long.parseLong(authRemaining) > Long.parseLong(anonymousRemaining));
 
     }
@@ -106,9 +106,9 @@ public class RateLimiterFilterTests {
     }
 
     private void verifyHeaders(RequestContext ctx){
-        assertNotNull(ctx.getResponse().getHeader(RateLimitFilter.Headers.LIMIT));
-        assertNotNull(ctx.getResponse().getHeader(RateLimitFilter.Headers.REMAINING));
-        assertNotNull(ctx.getResponse().getHeader(RateLimitFilter.Headers.RESET));
+        assertNotNull(ctx.getResponse().getHeader(RateLimitingFilter.Headers.LIMIT));
+        assertNotNull(ctx.getResponse().getHeader(RateLimitingFilter.Headers.REMAINING));
+        assertNotNull(ctx.getResponse().getHeader(RateLimitingFilter.Headers.RESET));
     }
 
 }

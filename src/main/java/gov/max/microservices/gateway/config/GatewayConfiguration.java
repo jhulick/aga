@@ -1,15 +1,21 @@
 package gov.max.microservices.gateway.config;
 
-import com.mycompany.myapp.gateway.ratelimiting.RateLimitingFilter;
-import com.mycompany.myapp.gateway.ratelimiting.RateLimitingRepository;
-import com.mycompany.myapp.gateway.accesscontrol.AccessControlFilter;
-import com.mycompany.myapp.gateway.responserewriting.SwaggerBasePathRewritingFilter;
+import gov.max.microservices.gateway.zuul.accesscontrol.AccessControlFilter;
+import gov.max.microservices.gateway.zuul.ratelimiting.InMemoryRateLimiter;
+import gov.max.microservices.gateway.zuul.ratelimiting.RateLimitingFilter;
+import gov.max.microservices.gateway.zuul.ratelimiting.RateLimitingProperties;
+import gov.max.microservices.gateway.zuul.ratelimiting.RateLimiter;
+import gov.max.microservices.gateway.zuul.ratelimiting.redis.RedisRateLimiter;
+import gov.max.microservices.gateway.zuul.responserewriting.SwaggerBasePathRewritingFilter;
 
-import javax.inject.Inject;
-
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 
 @Configuration
 public class GatewayConfiguration {
@@ -18,7 +24,7 @@ public class GatewayConfiguration {
     public static class SwaggerBasePathRewritingConfiguration {
 
         @Bean
-        public SwaggerBasePathRewritingFilter swaggerBasePathRewritingFilter(){
+        public SwaggerBasePathRewritingFilter swaggerBasePathRewritingFilter() {
             return new SwaggerBasePathRewritingFilter();
         }
     }
@@ -27,7 +33,7 @@ public class GatewayConfiguration {
     public static class AccessControlFilterConfiguration {
 
         @Bean
-        public AccessControlFilter accessControlFilter(){
+        public AccessControlFilter accessControlFilter() {
             return new AccessControlFilter();
         }
     }
@@ -37,32 +43,38 @@ public class GatewayConfiguration {
      * <p>
      * For this filter to work, you need to have:
      * <ul>
-     * <li>A working Cassandra cluster
-     * <li>A schema with the JHipster rate-limiting tables configured, using the
-     * "create_keyspace.cql" and "create_tables.cql" scripts from the
-     * "src/main/resources/config/cql" directory
-     * <li>Your cluster configured in your application-*.yml files, using the
-     * "spring.data.cassandra" keys
-     * <li>Spring Data Cassandra running, by removing in your application-*.yml the
-     * "spring.autoconfigure.exclude" key that excludes the Cassandra and Spring Data
-     * Cassandra auto-configuration.
+     * <li>A working Redis store
      * </ul>
      */
     @Configuration
-    @ConditionalOnProperty("jhipster.gateway.rate-limiting.enabled")
+    @EnableConfigurationProperties(RateLimitingProperties.class)
+    @ConditionalOnProperty("zuul.ratelimit.enabled")
+//    @ConditionalOnProperty("max.gateway.rate-limiting.enabled")
     public static class RateLimitingConfiguration {
 
-        @Inject
-        private JHipsterProperties jHipsterProperties;
-
         @Bean
-        public RateLimitingRepository rateLimitingRepository() {
-            return new RateLimitingRepository();
+        public RateLimitingFilter rateLimiterFilter(RateLimiter rateLimiter, RateLimitingProperties rateLimitingProperties) {
+            return new RateLimitingFilter(rateLimiter, rateLimitingProperties);
         }
 
-        @Bean
-        public RateLimitingFilter rateLimitingFilter() {
-            return new RateLimitingFilter(rateLimitingRepository(), jHipsterProperties);
+        @ConditionalOnMissingBean(name = {"redisTemplate"})
+        static class InMemoryRateLimitConfiguration {
+
+            @Bean
+            public RateLimiter inMemoryRateLimiter() {
+                InMemoryRateLimiter rateLimiter = new InMemoryRateLimiter();
+                return rateLimiter;
+            }
         }
+
+        @ConditionalOnBean(name = {"redisTemplate"})
+        @ConditionalOnClass(RedisTemplate.class)
+        static class RedisRateLimiterConfiguration {
+            @Bean
+            public RateLimiter redisRateLimiter(RedisTemplate redisTemplate) {
+                return new RedisRateLimiter(redisTemplate);
+            }
+        }
+
     }
 }

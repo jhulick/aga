@@ -5,6 +5,10 @@ import javax.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.cors.CorsConfiguration;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Properties specific to MAX.
  *
@@ -430,11 +434,21 @@ public class MaxProperties {
 
         private final RateLimiting rateLimiting = new RateLimiting();
 
-        private final EmbeddedCassandra embeddedCassandra = new EmbeddedCassandra();
-
         public RateLimiting getRateLimiting() {
             return rateLimiting;
         }
+
+        private Map<String, List<String>> authorizedMicroservicesEndpoints = new LinkedHashMap<>();
+
+        public Map<String, List<String>> getAuthorizedMicroservicesEndpoints() {
+            return authorizedMicroservicesEndpoints;
+        }
+
+        public void setAuthorizedMicroservicesEndpoints(Map<String, List<String>> authorizedMicroservicesEndpoints) {
+            this.authorizedMicroservicesEndpoints = authorizedMicroservicesEndpoints;
+        }
+
+        private final EmbeddedCassandra embeddedCassandra = new EmbeddedCassandra();
 
         public EmbeddedCassandra getEmbeddedCassandra() {
             return embeddedCassandra;

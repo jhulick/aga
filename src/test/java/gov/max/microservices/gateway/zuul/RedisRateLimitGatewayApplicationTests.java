@@ -7,14 +7,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import gov.max.microservices.gateway.web.filter.RateLimitZuulApplication;
-import gov.max.microservices.gateway.web.filter.ratelimit.*;
+import gov.max.microservices.gateway.zuul.ratelimiting.*;
 import gov.max.microservices.gateway.zuul.ratelimiting.redis.RedisRateLimiter;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.netflix.zuul.RoutesEndpoint;
+
 import redis.embedded.RedisServer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +68,7 @@ public class RedisRateLimitGatewayApplicationTests {
     private RedisRateLimitGatewayApplication.CounterController controller;
 
     @Autowired
-    private RateLimitProperties properties;
+    private RateLimitingProperties properties;
 
     @Autowired
     private RoutesEndpoint endpoint;
@@ -76,9 +78,9 @@ public class RedisRateLimitGatewayApplicationTests {
         routes.addRoute("/self/**", "http://localhost:" + this.port + "/local");
         this.endpoint.reset();
         ResponseEntity<String> response = new TestRestTemplate().getForEntity("http://localhost:" + port + "/self/1", String.class);
-        assertNotNull(response.getHeaders().get(RateLimitFilter.Headers.LIMIT));
-        assertNotNull(response.getHeaders().get(RateLimitFilter.Headers.REMAINING));
-        assertNotNull(response.getHeaders().get(RateLimitFilter.Headers.RESET));
+        assertNotNull(response.getHeaders().get(RateLimitingFilter.Headers.LIMIT));
+        assertNotNull(response.getHeaders().get(RateLimitingFilter.Headers.REMAINING));
+        assertNotNull(response.getHeaders().get(RateLimitingFilter.Headers.RESET));
     }
 
     @Test
