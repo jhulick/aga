@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.MimeMappings;
@@ -22,6 +23,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.io.File;
 import java.util.*;
 import javax.inject.Inject;
 import javax.servlet.*;
@@ -70,6 +72,17 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         // CloudFoundry issue, see https://github.com/cloudfoundry/gorouter/issues/64
         mappings.add("json", "text/html;charset=utf-8");
         container.setMimeMappings(mappings);
+
+        // When running in an IDE or with ./mvw spring-boot:run, set the location of the static web assets.
+        File root;
+        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
+            root = new File("target/www/");
+        } else {
+            root = new File("src/main/webapp/");
+        }
+        if (root.exists()) {
+            container.setDocumentRoot(root);
+        }
     }
 
     /**
@@ -132,6 +145,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
     }
 
     @Bean
+    @ConditionalOnProperty(name = "max.cors.allowed-origins")
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = props.getCors();
